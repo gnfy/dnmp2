@@ -1,0 +1,19 @@
+version: '3'
+services:
+    mysql:
+        image: mysql:5.7
+        restart: always
+        container_name: php-mysql-5-7
+        privileged: true
+        volumes:
+            - ./conf:/etc/mysql
+            - ./data:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+        command:
+            --default-authentication-plugin=mysql_native_password
+            --character-set-server=utf8mb4
+            --collation-server=utf8mb4_general_ci
+            --explicit_defaults_for_timestamp=true
+        ports:
+            - "3306:3306"

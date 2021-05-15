@@ -1,0 +1,19 @@
+version: '3'
+services:
+   php:
+        image: gnfy/php-fpm-swoole:1.6
+        restart: always
+        privileged: true
+        container_name: php-7-4-13
+        working_dir: /wwwroot
+        ports:
+            - "9000:9000"
+            - "9501:9501"
+            - "9502:9502"
+        volumes:
+            - ./php.ini:/usr/local/etc/php/php.ini
+            - ../logs/php:/usr/local/var/log
+            - ./php-fpm.d:/usr/local/etc/php-fpm.d
+            - ../wwwroot:/wwwroot
+            - /usr/share/nginx/html:/usr/share/nginx/html
+            - /etc/localtime:/etc/localtime:ro
