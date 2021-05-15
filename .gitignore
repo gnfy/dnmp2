@@ -1,4 +1,5 @@
 logs/nginx/*
 logs/php/*
-consul*
+consul/config/*
+consul/data/*
 redis/data/*
