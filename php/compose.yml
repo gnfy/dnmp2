@@ -1,10 +1,10 @@
 version: '3'
 services:
    php:
-        image: gnfy/php-fpm-swoole:1.7
+        image: gnfy/swoole-fpm:1.1
         restart: always
         privileged: true
-        container_name: php-7-4-13
+        container_name: swoole-4-8-1
         working_dir: /wwwroot
         ports:
             - "9000:9000"
