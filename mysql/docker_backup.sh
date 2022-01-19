@@ -17,10 +17,20 @@ password='root'
 
 doBackup () {
     db=$1
+    file="$db"_$(date +%Y%m%d_%H%M%S).sql.gz
+    if [ -z $2 ];then
+        doscp=0
+    else
+       doscp=$2
+    fi
     # docker备份数据
-    docker exec $host mysqldump --add-drop-table --add-drop-database -u"$user" -p"$password" "$db" | gzip > "$basedir"/"$db"_$(date +%Y%m%d_%H%M%S).sql.gz
+    docker exec $host mysqldump --add-drop-table --skip-lock-tables --add-drop-database -u"$user" -p"$password" "$db" | gzip > $basedir/$file
     # 删除过期的文件
-    doDelBackupFile $db 
+    doDelBackupFile $db
+    # 复制最新的文件到指定的下载地址
+    if [ $doscp -gt 0 ];then
+        doScpFile $db
+    fi
 }
 
 doDelBackupFile () {
@@ -40,8 +50,19 @@ doDelBackupFile () {
     fi
 }
 
+# 复制最新的文件到指定的下载地址
+doScpFile () {
+    tofile=/www/dnmp2/wwwroot/subscription-web/dist/"$1".sql.gz
+    dir=`ls -t $basedir | grep $1`;
+    for file in $dir
+    do
+        scp $basedir/$file sub-server:$tofile
+        break
+    done
+}
+
 #subscription数据备份
-doBackup 'subscription'
+doBackup 'subscription' 1
 
 # 广告的备份
 doBackup 'advertise'
