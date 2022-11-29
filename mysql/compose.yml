@@ -5,6 +5,9 @@ services:
         restart: always
         container_name: php-mysql-5-7
         privileged: true
+        mem_limit: 1500M
+        mem_reservation: 1024M
+        cpus: 1
         volumes:
             - ./conf:/etc/mysql
             - ./data:/var/lib/mysql
