@@ -1,0 +1,16 @@
+version: '3'
+services:
+   php:
+        image: tm-php:1.1
+        restart: always
+        privileged: true
+        container_name: tm-php-1-1
+        working_dir: /wwwroot
+        ports:
+            - "9000:9000"
+        volumes:
+            - ./php.ini:/usr/local/etc/php/php.ini
+            - ../logs/php:/usr/local/var/log
+            - ./php-fpm.d:/usr/local/etc/php-fpm.d
+            - ../wwwroot:/wwwroot
+            - /usr/share/nginx/html:/usr/share/nginx/html
