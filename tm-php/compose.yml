@@ -13,4 +13,5 @@ services:
             - ../logs/php:/usr/local/var/log
             - ./php-fpm.d:/usr/local/etc/php-fpm.d
             - ../wwwroot:/wwwroot
+            - ../wwwroot:/home/wwwroot
             - /usr/share/nginx/html:/usr/share/nginx/html
