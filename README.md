@@ -4,3 +4,5 @@
 
 如果需要统一的包，则可以移步。https://github.com/gnfy/dnmp
 
+nginx-http-concat 该目录下的nginx包括nginx-http-concat模块
+
