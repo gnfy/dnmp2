@@ -1,0 +1,17 @@
+version: '3'
+services:
+    elasticsearch:
+        image: elasticsearch:7.17.19 
+        restart: always
+        privileged: true    #环境变量
+        container_name: elasticsearch
+        environment:
+            - discovery.type=single-node
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"  # 设置 Elasticsearch 的 JVM 内存
+        volumes:
+            - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+            - ./data:/usr/share/elasticsearch/data
+            - ./plugins:/usr/share/elasticsearch/data
+        ports:
+            - "9200:9200"
+            - "9300:9300"

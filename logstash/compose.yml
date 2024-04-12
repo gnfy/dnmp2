@@ -1,0 +1,23 @@
+version: '3'
+services:
+    logstash:
+        image: logstash:7.17.19 
+        restart: always
+        privileged: true    #环境变量
+        container_name: logstash
+        volumes:
+            - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml
+            - ./pipeline:/usr/share/logstash/pipeline
+            - ../logs/logstash:/usr/share/logstash/logs
+            - ./mysql-connector-j-8.3.0/mysql-connector-j-8.3.0.jar:/usr/share/logstash/mysql-connector-j-8.3.0.jar
+        networks:
+            - default
+
+networks:
+    default:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.30.0.0/16
+                  gateway: 172.30.0.1

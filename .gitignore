@@ -1,5 +1,8 @@
 logs/nginx/*
 logs/php/*
+logs/logstash/*
 consul/config/*
 consul/data/*
 redis/data/*
+es/data/*
+es/plugins/*

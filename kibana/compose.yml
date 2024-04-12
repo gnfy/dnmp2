@@ -1,0 +1,22 @@
+version: '3'
+services:
+    kibana:
+        image: kibana:7.17.19 
+        restart: always
+        privileged: true    #环境变量
+        container_name: kibana
+        volumes:
+            - ./config/kibana.yml:/usr/share/kibana/config/kibana.yml
+        ports:
+            - "5601:5601"
+        networks:
+            - default
+
+networks:
+    default:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.29.0.0/16
+                  gateway: 172.29.0.1
