@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  data-node:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+    container_name: es-data-${HOSTNAME}
+    environment:
+      - cluster.name=my-es-cluster
+      - node.name=es-data-${HOSTNAME}
+      - node.master=false
+      - node.data=true
+      - discovery.seed_hosts=es-master-node1-ip,es-master-node2-ip,es-master-node3-ip
+      - network.host=0.0.0.0
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - ELASTIC_PASSWORD=changeme
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./data-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - elastic-network
+
+networks:
+  elastic-network:
+    driver: bridge
