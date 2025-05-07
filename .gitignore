@@ -6,3 +6,4 @@ consul/data/*
 redis/data/*
 es/data/*
 es/plugins/*
+.vscode
